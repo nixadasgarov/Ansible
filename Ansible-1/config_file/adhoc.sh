@@ -1,0 +1,1 @@
+ansible all -m yum_repository -a ' name="EPEL REPO" description="RHEL8 TEST REPO" file=external_repos baseurl="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rmp" enabled=0 gpgcheck=0 gpgkey="http://repo.mysql.com/RPM-GPG-KEY-mysql"'
