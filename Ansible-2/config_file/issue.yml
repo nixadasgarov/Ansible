@@ -1,0 +1,8 @@
+---
+- name: lineinfile
+  hosts: all
+  tasks:
+    - name: add line to issue file
+      lineinfile:
+        path: /etc/issue
+        line: Development

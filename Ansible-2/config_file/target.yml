@@ -1,0 +1,10 @@
+---
+- name: target
+  hosts: all
+  tasks:
+    - name: link_multi-user.target_to_default.target
+      file:
+        src: /usr/lib/systemd/system/multi-user.target
+        dest: /etc/systemd/system/default.target
+        state: link
+
