@@ -1,0 +1,34 @@
+---
+- name: Deploy and start Apache HTTPD service
+  hosts: webserver
+
+  vars_files:
+    - vars/variable.txt
+
+  tasks:
+   
+    - name: install apache
+      yum:
+        name:
+          - "{{web_pkg}}"
+          - "{{frwl_pkg}}"
+        state: latest  
+
+    - name: ensure apache service is started and enabled
+      service: 
+        name: "{{web_pkg}}"
+        enabled: yes
+        state: started
+
+    - name: ensure firewalld service is started and enabled
+      service:
+        name: "{{frwl_pkg}}"
+        enabled: yes
+        state: started
+
+    - name: add apache service to firewall
+      ansible.posix.firewalld:
+        service: "{{rule}}"
+        permanent: true
+        state: enabled
+        immediate: true

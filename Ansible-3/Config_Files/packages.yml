@@ -1,0 +1,10 @@
+---
+- name: packages
+  hosts: all
+  tasks:
+    - name: packages 
+      yum:
+        name:
+          - "{{packages1}}"
+          - "{{packages2}}"
+          - "{{packages3}}"

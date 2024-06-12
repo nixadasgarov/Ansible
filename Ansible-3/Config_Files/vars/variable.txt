@@ -1,0 +1,5 @@
+web_pkg: httpd
+frwl_pkg: firewalld
+web_svc: http
+frwl_svc: firewalld
+rule: http
