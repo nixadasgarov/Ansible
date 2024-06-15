@@ -1,0 +1,59 @@
+---
+- name: webdev task
+  hosts: host
+  tasks:
+    - name: make group
+      ansible.builtin.group:
+        name: webdev
+        state: present
+
+    - name: make directory /webdev, give basic and special permission, change owner of directory
+      ansible.builtin.file:
+        path: /webdev
+        state: directory
+        group: webdev
+        mode: '2755'
+
+    - name: write text "Development" to /webdev/index.html
+      ansible.builtin.copy:
+        dest: /webdev/index.html
+        content: 'Development'
+    
+    - name: install httpd
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+
+    - name: make sure firewall was installed
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: yes
+
+    - name: start and enable httpd
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: add http to firewall service
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+      
+    - name: link symbolic from /webdev /var/www/html/webdev
+      ansible.builtin.file:
+        src: /webdev
+        dest: /var/www/html/webdev
+        state: link    
+
+    - name: edit context /var/www/html/webdev
+      community.general.sefcontext:
+        target: '/webdev(/.*)?'
+        setype: httpd_sys_rw_content_t
+        state: present
+    
+    - name: selinux restorecon 
+      ansible.builtin.command: restorecon -irv /srv/git_repos
