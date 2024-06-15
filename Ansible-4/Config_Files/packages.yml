@@ -5,6 +5,6 @@
     - name: packages 
       yum:
         name:
-          - httpd
-          - mod_ssl
-          - mariadb
+          - "{{packages1}}"
+          - "{{packages2}}"
+          - "{{packages3}}"
