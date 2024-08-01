@@ -1,0 +1,31 @@
+---
+- name: give some information
+  hosts: prod
+  tasks:
+    - name: cpu model
+      debug:
+        msg: "{{ansible_facts['processor']}}"
+    
+    - name: ip interface
+      debug:
+        msg: "{{ansible_facts['default_ipv4']['interface']}}"
+
+    - name: fqdn
+      debug:
+        msg: "{{ansible_facts['fqdn']}}"
+
+    - name: hostname
+      debug:
+        msg: "{{ansible_facts['hostname']}}"
+
+    - name: sda1 disk size
+      debug:
+        msg: "{{ansible_facts['devices']['nvme0n1']['partitions']['nvme0n1p1']['size']}}"
+   
+    - name: OS family
+      debug:
+        msg: "{{ansible_facts['os_family']}}"
+          
+    - name: distro
+      debug:
+        msg: "{{ansible_facts['distribution']}}"

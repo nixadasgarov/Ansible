@@ -1,0 +1,13 @@
+---
+- name: copy report.txt
+  hosts: prod
+  tasks:
+    - name: copy 
+      copy:
+        src: report.txt
+        dest: /opt/report.txt
+    
+    - name: real information      
+      copy:
+        content: "{{ansible_facts['hostname']}}"
+        dest: /opt/report.txt

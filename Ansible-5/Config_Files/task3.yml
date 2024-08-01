@@ -1,0 +1,7 @@
+---
+- name: inventory hostname
+  hosts: prod
+  tasks:
+    - name: inventory hostname
+      debug:
+        var: inventory_hostname

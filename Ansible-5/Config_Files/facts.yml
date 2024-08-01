@@ -1,0 +1,8 @@
+---
+- name: task 2
+  hosts: prod
+  tasks:
+    - name: real-info.txt
+      copy:
+        content: This is BIOS_Version {{ansible_facts['bios_version']}}, This is SDA_Size {{ansible_facts['devices']['nvme0n1']['partitions']['nvme0n1p1']['size']}}, This is Total_Memory {{ansible_facts['memtotal_mb']}}, This is Kernel_Version {{ansible_facts['kernel_version']}}
+        dest: /home/real-info.txt
